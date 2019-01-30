@@ -228,16 +228,33 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#creators" class="toc-h1 toc-link" data-title="Creators">Creators</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#create-user" class="toc-h2 toc-link" data-title="Create user">Create user</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#create-market" class="toc-h2 toc-link" data-title="Create market">Create market</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#create-trade" class="toc-h2 toc-link" data-title="Create trade">Create trade</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#views" class="toc-h1 toc-link" data-title="Views">Views</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#view-order-book" class="toc-h2 toc-link" data-title="View order book">View order book</a>
+                  </li>
+                  <li>
+                    <a href="#view-open-trades" class="toc-h2 toc-link" data-title="View open trades">View open trades</a>
+                  </li>
+                  <li>
+                    <a href="#view-matched-trades" class="toc-h2 toc-link" data-title="View matched trades">View matched trades</a>
+                  </li>
+                  <li>
+                    <a href="#view-trade-summary-for-a-particular-trader" class="toc-h2 toc-link" data-title="View trade summary for a particular trader">View trade summary for a particular trader</a>
                   </li>
               </ul>
           </li>
@@ -246,7 +263,6 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -254,79 +270,39 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the <strong>bloc</strong> API. You can use this to interact with an exchange which will improve your life and maybe save the universe.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Language bindings are in Shell and Python. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>A version of the server is running on <a href="https://blocmarket.heroku.com/">blocmarket</a>. Go break things there. The <a href="https://github.com/alpinechicken/blocmarket/">github</a> has more demonstrations and examples.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Authentication is handled through signatures on markets and trades. The server will only accept correctly signed markets and orders using a registered verify key. There is no need to authenticate.</p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Signatures are obtained through the <code>createUser</code> endpoint.
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h1 id='creators'>Creators</h1><h2 id='create-user'>Create user</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/createUser'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/createUser
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="p">{</span><span class="err">'signingKey'</span><span class="p">:</span><span class="w"> </span><span class="err">'ece</span><span class="mi">2</span><span class="err">efc</span><span class="mi">138</span><span class="err">c</span><span class="mi">8298</span><span class="err">d</span><span class="mi">43</span><span class="err">caba</span><span class="mi">1315</span><span class="err">ceda</span><span class="mi">614</span><span class="err">e</span><span class="mi">20644</span><span class="err">c</span><span class="mi">74</span><span class="err">d</span><span class="mi">46</span><span class="err">fed</span><span class="mi">37871</span><span class="err">c</span><span class="mi">47</span><span class="err">ea</span><span class="mi">19</span><span class="err">afdf'</span><span class="p">,</span><span class="w">
+ </span><span class="err">'traderId'</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">1</span><span class="err">'</span><span class="p">,</span><span class="w">
+ </span><span class="err">'verifyKey'</span><span class="p">:</span><span class="w"> </span><span class="err">'</span><span class="mi">9690</span><span class="err">a</span><span class="mi">2</span><span class="err">e</span><span class="mi">12971</span><span class="err">ae</span><span class="mi">452</span><span class="err">d</span><span class="mi">68</span><span class="err">bf</span><span class="mi">3</span><span class="err">d</span><span class="mi">08405090</span><span class="err">d</span><span class="mi">45791533</span><span class="err">cf</span><span class="mi">80740</span><span class="err">fd</span><span class="mi">186</span><span class="err">aea</span><span class="mi">4</span><span class="err">b</span><span class="mi">6773</span><span class="err">fc'</span><span class="p">}</span><span class="w">
+
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint creates a new user and registers the <code>verifyKey</code> with the server.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p><code>POST https://blocmarket.herokuapp.com/createUser</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -336,108 +312,365 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>None</td>
+<td>none</td>
+<td>none</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+The verify key is registered with the server so messages can be verified as belonging to that trader. The signing key is not stored.
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<aside class="warning">
+The signing key is not stored on the server. It cannot be recovered.
+</aside>
+<h2 id='create-market'>Create market</h2>
+<blockquote>
+<p>Create a new market change bounds on an existing market:</p>
+</blockquote>
+<pre class="highlight python tab-python"><code>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="n">sk</span> <span class="o">=</span> <span class="s">'ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf'</span>
+<span class="n">vk</span> <span class="o">=</span> <span class="s">'9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc'</span>
+<span class="n">tId</span> <span class="o">=</span> <span class="mi">2</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/createMarket'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+<span class="n">content_makemarket</span> <span class="o">=</span> <span class="p">{</span><span class="s">"signingKey"</span><span class="p">:</span> <span class="n">sk</span><span class="p">,</span>
+                    <span class="s">"traderId"</span><span class="p">:</span> <span class="n">tId</span><span class="p">,</span> 
+                    <span class="s">"verifyKey"</span><span class="p">:</span> <span class="n">vk</span><span class="p">,</span>
+                    <span class="s">"marketRootId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
+                    <span class="s">"marketBranchId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
+                    <span class="s">"marketMin"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s">"marketMax"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf",
+"traderId": 1, 
+"verifyKey": "9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc",
+"marketRootId": 1, 
+"marketBranchId": 5, 
+"marketMin": 0, 
+"marketMax": 1}'</span> 
+--header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/createMarket
+
+
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="err">'allChecks'</span><span class="p">:</span><span class="w"> 
+     </span><span class="s2">"{'marketId': '1', 'marketRangeChk': True,
+     'sigChk': True, 'chainChk': True, 
+     'ownerChk': True, 'timeChk': True}"</span><span class="p">,</span><span class="w">
+ </span><span class="err">'checks'</span><span class="p">:</span><span class="w"> </span><span class="err">'False'</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketBranchId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketMax'</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketMin'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketRootId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'traderId'</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w">
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+</span></code></pre>
+<p>This creates a new market if one does not exist with this <code>marketRootId</code>/<code>marketBranchId</code> combination. If the market exists, this will update the maximum/minimum within the existing bounds.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<p><code>POST https://blocmarket.herokuapp.com/createMarket</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td><code>signingKey</code></td>
+<td>none</td>
+<td>Private key</td>
+</tr>
+<tr>
+<td><code>verifyKey</code></td>
+<td>none</td>
+<td>Pubic key</td>
+</tr>
+<tr>
+<td><code>traderId</code></td>
+<td>none</td>
+<td>Trader Id</td>
+</tr>
+<tr>
+<td><code>marketRootId</code></td>
+<td>none</td>
+<td>Market root Id</td>
+</tr>
+<tr>
+<td><code>marketBranchId</code></td>
+<td>none</td>
+<td>Market branch Id</td>
+</tr>
+<tr>
+<td><code>marketMin</code></td>
+<td>none</td>
+<td>Minimum settlement value</td>
+</tr>
+<tr>
+<td><code>marketMax</code></td>
+<td>none</td>
+<td>Maximum settlement value</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id='create-trade'>Create trade</h2>
+<blockquote>
+<p>Create a new trade (open order)</p>
+</blockquote>
+<pre class="highlight python tab-python"><code><span class="n">sk</span> <span class="o">=</span> <span class="s">'0cca0a3739eba76cc78823d9f6e898379014d8c53172f5e45c171a3c54a9f477'</span>
+<span class="n">vk</span> <span class="o">=</span> <span class="s">'cdcfb59431b2579a681cee65656cbed6f8d578d5cc30d3e759e86c1d3e3529ef'</span>
+<span class="n">tId</span> <span class="o">=</span> <span class="mi">2</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/createTrade'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+<span class="n">content_maketrade</span> <span class="o">=</span> <span class="p">{</span><span class="s">"signingKey"</span><span class="p">:</span> <span class="n">sk</span><span class="p">,</span>
+                     <span class="s">"traderId"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">tId</span><span class="p">),</span>
+                     <span class="s">"verifyKey"</span><span class="p">:</span> <span class="n">vk</span><span class="p">,</span>
+                     <span class="s">"marketId"</span><span class="p">:</span> <span class="n">mkId</span><span class="p">,</span>
+                     <span class="s">"price"</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+                     <span class="s">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content_maketrade</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf",
+"traderId": 1, 
+"verifyKey": "9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc",
+"marketRootId": 1, 
+"marketBranchId": 5, 
+"marketMin": 0, 
+"marketMax": 1}'</span> 
+--header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/createMarket
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="err">'allChecks'</span><span class="p">:</span><span class="w"> </span><span class="s2">"{'marketChk': True, 'sigChk': True, 'chainChk': True, 'timeChk': True, 'colChk': True}"</span><span class="p">,</span><span class="w">
+ </span><span class="err">'checks'</span><span class="p">:</span><span class="w"> </span><span class="err">'True'</span><span class="p">,</span><span class="w">
+ </span><span class="err">'marketId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'price'</span><span class="p">:</span><span class="w"> </span><span class="mf">0.55</span><span class="p">,</span><span class="w">
+ </span><span class="err">'quantity'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="err">'traderId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
+
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
+<p>Signed trade is added the signature is valid</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<p><code>POST https://blocmarket.herokuapp.com/createTrade</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td><code>signingKey</code></td>
+<td>none</td>
+<td>Private signature key</td>
+</tr>
+<tr>
+<td><code>verifyKey</code></td>
+<td>none</td>
+<td>Pubic signature key</td>
+</tr>
+<tr>
+<td><code>traderId</code></td>
+<td>none</td>
+<td>Trader Id</td>
+</tr>
+<tr>
+<td><code>marketId</code></td>
+<td>none</td>
+<td>Market Id</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>none</td>
+<td>price</td>
+</tr>
+<tr>
+<td><code>quantity</code></td>
+<td>none</td>
+<td>quantity</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<aside class="success">
+The verify key is registered with the server so messages can be verified as belonging to that trader. The signing key is not stored.
+</aside>
+<h1 id='views'>Views</h1><h2 id='view-order-book'>View order book</h2><pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOrderBook'</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewOrderBook --output ob.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 ...}
+
+
+</span></code></pre>
+<p>This endpoint creates a new user and registers the <code>verifyKey</code> with the server.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewOrderBook</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>None</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+This will return the unedited order book which will probably be very big and should only be used for broadcasting or checking logic.
+</aside>
+<h2 id='view-open-trades'>View open trades</h2><pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOpenTrades'</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewOpenTrades --output ob.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
+
+
+</span></code></pre>
+<p>This endpoint returns all open trades.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewOpenTrades</code></p>
+<h3 id='query-parameters-5'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>None</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
+</aside>
+<h2 id='view-matched-trades'>View matched trades</h2><pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewMatchedTrades'</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight shell tab-shell"><code>curl --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewMatchedTrades --output ob.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
+
+
+</span></code></pre>
+<p>This endpoint returns all matched trades.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewMatchedTrades</code></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>None</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
+</aside>
+<h2 id='view-trade-summary-for-a-particular-trader'>View trade summary for a particular trader</h2><pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewTradeSummary'</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'traderId'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight shell tab-shell"><code>curl --data <span class="o">{</span><span class="s2">"traderId"</span>: 2<span class="o">}</span>--header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewTradeSummary --output ts.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"iMatched"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="err">True...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
+    "</span><span class="err">marketMin</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":0.1...}
+    "</span><span class="err">marketMax</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":0.9...}
+    "</span><span class="err">marketMinOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", -0.45 ...}
+    "</span><span class="err">marketMaxOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", 0.35 ...}}'
+
+
+</span></code></pre>
+<p>This endpoint returns all trades for a particular user and the payoff for the trade at the maximum and minimum value for the market.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewTradeSummary</code></p>
+<h3 id='query-parameters-7'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>traderId</td>
+<td>none</td>
+<td>Trader Id</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
+</aside>
+<h1 id='errors'>Errors</h1>
+<p>The bloc API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -450,36 +683,8 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <td>Bad Request -- Your request is invalid.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Not Found -- Page could not be found.</td>
 </tr>
 <tr>
 <td>500</td>
