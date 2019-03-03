@@ -46,6 +46,19 @@ content = {}
 response = requests.post(url, data=json.dumps(content), headers=headers)
 
 ```
+```javascript
+var data = {};
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  // Convert the JavaScript object to a JSON string.
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createUser', options);
+  var w = JSON.parse(response.getContentText())
+```
+
 
 ```shell
 curl --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/createUser
@@ -108,6 +121,30 @@ response = requests.post(url, data=json.dumps(content), headers=headers)
 
 ```
 
+```javascript
+
+var signingKey = 'ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf'
+var verifyKey = '9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc'
+var traderId = 2
+var data = {"signingKey": signingKey,
+                    "traderId": traderId, 
+                    "verifyKey": verifyKey,
+                    "marketRootId": 1, 
+                    "marketBranchId": 1, 
+                    "marketMin": 0,
+                    "marketMax":1}
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  // Convert the JavaScript object to a JSON string.
+  'payload' : JSON.stringify(data)
+};
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createMarket', options);
+  var w = JSON.parse(response.getContentText())
+
+```
+
+
 ```shell
 curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf",
 "traderId": 1, 
@@ -126,10 +163,14 @@ curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed378
 
 ```json
 
-{'allChecks': 
-     "{'marketId': '1', 'marketRangeChk': True,
-     'sigChk': True, 'chainChk': True, 
-     'ownerChk': True, 'timeChk': True}",
+
+
+
+{'allChecks': "{'inputChk': True, 'marketLimitChk': False, 
+    'traderIdChk': True, 'marketId': '1', 
+    'marketRangeChk': True, 'marketIndChk': True, 
+    'sigChk': True, 'chainChk': True, 
+    'ownerChk': True, 'timeChk': True}”,
  'checks': 'False',
  'marketBranchId': 1,
  'marketId': 1,
@@ -180,6 +221,29 @@ content_maketrade = {"signingKey": sk,
 response = requests.post(url, data=json.dumps(content_maketrade), headers=headers)
 ```
 
+```javascript
+
+var signingKey = '0cca0a3739eba76cc78823d9f6e898379014d8c53172f5e45c171a3c54a9f477'
+var verifyKey = 'cdcfb59431b2579a681cee65656cbed6f8d578d5cc30d3e759e86c1d3e3529ef'
+var traderId = 2
+
+var data = {"signingKey": signingKey,
+                     "traderId": traderId,
+                     "verifyKey": verifyKey,
+                     "marketId": 1,
+                     "price": 0.55,
+                     "quantity":1}
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  // Convert the JavaScript object to a JSON string.
+  'payload' : JSON.stringify(data)
+};
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createTrade', options);
+  var w = JSON.parse(response.getContentText())
+```
+
+
 ```shell
 curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf",
 "traderId": 1, 
@@ -198,8 +262,12 @@ curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed378
 
 ```json
 
-{'allChecks': "{'marketChk': True, 'sigChk': True, 'chainChk': True, 'timeChk': True, 'colChk': True}",
- 'checks': 'True',
+{
+
+'allChecks': "{'inputChk': True, 'traderIdChk': True, 
+'marketChk': True, 'sigChk': True, 
+'chainChk': True, 'timeChk': True, 
+'colChk': True}",
  'marketId': 1,
  'price': 0.55,
  'quantity': 1,
@@ -285,6 +353,11 @@ This will return the unedited order book which will probably be very big and sho
 url = 'https://blocmarket.herokuapp.com/viewOpenTrades'
 content = {'marketId': 1}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
+
+```
+
+```javascript
+
 
 ```
 
