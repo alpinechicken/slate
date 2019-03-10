@@ -146,6 +146,7 @@ var options = {
 
 
 ```shell
+
 curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf",
 "traderId": 1, 
 "verifyKey": "9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc",
@@ -155,16 +156,12 @@ curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed378
 "marketMax": 1}' 
 --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/createMarket
 
-
 ```
 
 
 > The above command returns JSON structured like this:
 
 ```json
-
-
-
 
 {'allChecks': "{'inputChk': True, 'marketLimitChk': False, 
     'traderIdChk': True, 'marketId': '1', 
@@ -311,6 +308,19 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 
 ```
 
+```javascript
+var data = {"marketId": 1}
+
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewOrderBook', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ))
+```
+
 ```shell
 curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/viewOrderBook --output ob.txt
 ```
@@ -357,7 +367,15 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 ```
 
 ```javascript
+var data = {"marketId": 1}
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
 
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewOpenTrades', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ))
 
 ```
 
@@ -409,6 +427,19 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 
 ```
 
+```javascript
+var data = {"marketId": 1}
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewMatchedTrades', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ))
+```
+
+
 ```shell
 curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/viewMatchedTrades --output ob.txt
 ```
@@ -454,6 +485,20 @@ content = {'traderId': 2}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
 
 ```
+
+```javascript
+var data = {"traderId": 2}
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewTradeSummary', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ))
+
+```
+
 
 ```shell
 curl --data {"traderId": 2} --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/viewTradeSummary --output ts.txt
