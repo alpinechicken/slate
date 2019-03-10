@@ -304,9 +304,6 @@ The verify key is saved so messages from that trader can be verified. The signin
 
 Views return market and order book information. 
 
-<aside class="warning">
-JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.
- </aside>
 
 ```python
 url = 'https://blocmarket.herokuapp.com/viewOrderBook'
@@ -347,6 +344,10 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
 ```
 
 This endpoint creates a new user and registers the `verifyKey` with the server.
+
+<aside class="warning">
+JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.</aside>
+
 
 ### HTTP Request
 
