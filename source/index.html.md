@@ -40,6 +40,7 @@ Three things can be created: users, markets, and trades. Adjusting/settling mark
 
 
 ```python
+
 import requests
 import json
 url = 'https://blocmarket.herokuapp.com/createUser'
@@ -49,6 +50,7 @@ response = requests.post(url, data=json.dumps(content), headers=headers)
 
 ```
 ```javascript
+
 var data = {};
 var options = {
   'method' : 'post',
@@ -58,7 +60,7 @@ var options = {
 };
 
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createUser', options);
-  var w = JSON.parse(response.getContentText())
+  var w = JSON.parse(response.getContentText());
 ```
 
 
@@ -125,8 +127,8 @@ response = requests.post(url, data=json.dumps(content), headers=headers)
 
 ```javascript
 
-var signingKey = 'ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf'
-var verifyKey = '9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc'
+var signingKey = 'ece2efc138c8298d43caba1315ceda614e20644c74d46fed37871c47ea19afdf';
+var verifyKey = '9690a2e12971ae452d68bf3d08405090d45791533cf80740fd186aea4b6773fc';
 var traderId = 2
 var data = {"signingKey": signingKey,
                     "traderId": traderId, 
@@ -134,15 +136,15 @@ var data = {"signingKey": signingKey,
                     "marketRootId": 1, 
                     "marketBranchId": 1, 
                     "marketMin": 0,
-                    "marketMax":1}
+                    "marketMax":1};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
   // Convert the JavaScript object to a JSON string.
-  'payload' : JSON.stringify(data)
+  'payload' : JSON.stringify(data);
 };
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createMarket', options);
-  var w = JSON.parse(response.getContentText())
+  var w = JSON.parse(response.getContentText());
 
 ```
 
@@ -205,6 +207,7 @@ Parameter | Default | Description
 > Create a new trade (open order)
 
 ```python
+
 sk = '0cca0a3739eba76cc78823d9f6e898379014d8c53172f5e45c171a3c54a9f477'
 vk = 'cdcfb59431b2579a681cee65656cbed6f8d578d5cc30d3e759e86c1d3e3529ef'
 tId = 2
@@ -231,7 +234,7 @@ var data = {"signingKey": signingKey,
                      "verifyKey": verifyKey,
                      "marketId": 1,
                      "price": 0.55,
-                     "quantity":1}
+                     "quantity":1};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
@@ -239,7 +242,7 @@ var options = {
   'payload' : JSON.stringify(data)
 };
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/createTrade', options);
-  var w = JSON.parse(response.getContentText())
+  var w = JSON.parse(response.getContentText());
 ```
 
 
@@ -313,7 +316,7 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 ```
 
 ```javascript
-var data = {"marketId": 1}
+var data = {"marketId": 1};
 
 var options = {
   'method' : 'post',
@@ -322,7 +325,7 @@ var options = {
 };
 
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewOrderBook', options);
-  var json = JSON.parse(JSON.parse(response.getContentText() ))
+  var json = JSON.parse(JSON.parse(response.getContentText() ));
 ```
 
 ```shell
@@ -339,7 +342,6 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
     "quantity": {"1":1...}
     "traderId": {"1":1...}
     "timeStampUTC = {"1": 1548760422106 ...}
-
 
 ```
 
@@ -363,13 +365,16 @@ This will return the unedited order book which will probably be very big and sho
 </aside>
 
 <aside class="warning">
-JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.</aside>
+JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.
+</aside>
 
 
 ## View open trades
 
+View unmatched trades.
 
 ```python
+
 url = 'https://blocmarket.herokuapp.com/viewOpenTrades'
 content = {'marketId': 1}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
@@ -377,7 +382,8 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 ```
 
 ```javascript
-var data = {"marketId": 1}
+
+var data = {"marketId": 1};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
@@ -385,7 +391,7 @@ var options = {
 };
 
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewOpenTrades', options);
-  var json = JSON.parse(JSON.parse(response.getContentText() ))
+  var json = JSON.parse(JSON.parse(response.getContentText()));
 
 ```
 
@@ -426,11 +432,11 @@ The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 
 
 
-
 ## View matched trades
 
 
 ```python
+
 url = 'https://blocmarket.herokuapp.com/viewMatchedTrades'
 content = {'marketId': 1}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
@@ -438,7 +444,8 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 ```
 
 ```javascript
-var data = {"marketId": 1}
+
+var data = {"marketId": 1};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
@@ -446,7 +453,7 @@ var options = {
 };
 
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewMatchedTrades', options);
-  var json = JSON.parse(JSON.parse(response.getContentText() ))
+  var json = JSON.parse(JSON.parse(response.getContentText() ));
 ```
 
 
@@ -497,7 +504,7 @@ response = requests.post(url, data=json.dumps(content), headers=headers, stream=
 ```
 
 ```javascript
-var data = {"traderId": 2}
+var data = {"traderId": 2};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
@@ -505,7 +512,7 @@ var options = {
 };
 
   var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewTradeSummary', options);
-  var json = JSON.parse(JSON.parse(response.getContentText() ))
+  var json = JSON.parse(JSON.parse(response.getContentText() ));
 
 ```
 
