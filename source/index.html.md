@@ -345,8 +345,6 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
 
 This endpoint creates a new user and registers the `verifyKey` with the server.
 
-<aside class="warning">
-JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.</aside>
 
 
 ### HTTP Request
@@ -363,6 +361,10 @@ marketId | none | Market Id
 <aside class="warning">
 This will return the unedited order book which will probably be very big and should only be used for broadcasting or checking logic.
 </aside>
+
+<aside class="warning">
+JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.</aside>
+
 
 ## View open trades
 
