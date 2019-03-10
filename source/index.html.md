@@ -360,6 +360,13 @@ Parameter | Default | Description
 marketId | none | Market Id
 
 
+<aside class="warning">
+This will return the unedited order book which will probably be very big and should only be used for broadcasting or checking logic.
+</aside>
+
+<aside class="warning">
+JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.
+</aside>
 
 
 ## View open trades
