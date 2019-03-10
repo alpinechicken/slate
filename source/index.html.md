@@ -1,3 +1,10 @@
+{%
+ git add .
+ git commit -m ""
+ git push
+ ./deploy.sh
+ %}
+
 ---
 title: API Reference
 
