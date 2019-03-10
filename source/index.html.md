@@ -27,19 +27,21 @@ search: true
 
 Welcome to the **bloc** API. You can use this to interact with an exchange which will improve your life and maybe save the universe.
 
-Language bindings are in Shell and Python. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Language bindings are in Python, JavaScript, and shell. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 A version of the server is running on [blocmarket](https://blocmarket.heroku.com/). Go break things there. The [github](https://github.com/alpinechicken/blocmarket/) has more demonstrations and examples.
 
 # Authentication
 
-Authentication is handled through signatures on markets and trades. The server will only accept correctly signed markets and orders using a registered verify key. There is no need to authenticate.
+Authentication is handled through signatures on markets and trades. The server will only accept correctly signed markets and orders using a registered key. There is no need to authenticate.
 
 <aside class="notice">
 Signatures are obtained through the <code>createUser</code> endpoint.
 </aside>
 
 # Creators
+
+Three things can be created: users, markets, and trades. Adjusting/settling markets or removing trades uses the same functions.
 
 ## Create user
 
@@ -300,13 +302,18 @@ Parameter | Default | Description
 
 
 <aside class="success">
-The verify key is registered with the server so messages can be verified as belonging to that trader. The signing key is not stored.
+The verify key is saved so messages from that trader can be verified. The signing key is not stored.
 </aside>
 
 # Views
 
 ## View order book
 
+Views return market and order book information. 
+
+<aside class="warning">
+JSON returned to JavaScript must be parsed twice because JavaScript doesn't understand the json version of pandas dataframes unless you tell it twice.
+ </aside>
 
 ```python
 url = 'https://blocmarket.herokuapp.com/viewOrderBook'
