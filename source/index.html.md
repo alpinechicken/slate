@@ -120,7 +120,7 @@ content_makemarket = {"signingKey": sk,
                     "marketRootId": 1, 
                     "marketBranchId": 1, 
                     "marketMin": 0,
-                    "marketMax":1}
+                    "marketMax":10000}
 response = requests.post(url, data=json.dumps(content), headers=headers)
 
 ```
@@ -136,7 +136,7 @@ var data = {"signingKey": signingKey,
                     "marketRootId": 1, 
                     "marketBranchId": 1, 
                     "marketMin": 0,
-                    "marketMax":1};
+                    "marketMax":10000};
 var options = {
   'method' : 'post',
   'contentType': 'application/json',
@@ -176,7 +176,7 @@ curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed378
  'marketBranchId': 1,
  'marketId': 1,
  'marketMax': 0,
- 'marketMin': 1,
+ 'marketMin': 10000,
  'marketRootId': 1,
  'traderId': 2}
 
@@ -218,7 +218,7 @@ content_maketrade = {"signingKey": sk,
                      "traderId": int(tId),
                      "verifyKey": vk,
                      "marketId": mkId,
-                     "price": 0.55,
+                     "price": 5500,
                      "quantity":1}
 response = requests.post(url, data=json.dumps(content_maketrade), headers=headers)
 ```
@@ -233,7 +233,7 @@ var data = {"signingKey": signingKey,
                      "traderId": traderId,
                      "verifyKey": verifyKey,
                      "marketId": 1,
-                     "price": 0.55,
+                     "price": 5500,
                      "quantity":1};
 var options = {
   'method' : 'post',
@@ -271,7 +271,7 @@ curl --data '{"signingKey": "ece2efc138c8298d43caba1315ceda614e20644c74d46fed378
 'chainChk': True, 'timeChk': True, 
 'colChk': True}",
  'marketId': 1,
- 'price': 0.55,
+ 'price': 5500,
  'quantity': 1,
  'traderId': 1}
 
@@ -309,7 +309,10 @@ Views return market and order book information.
 
 
 ```python
+import json
+import requests
 url = 'https://blocmarket.herokuapp.com/viewOrderBook'
+headers = {'content-type': 'application/json'}
 content = {'marketId': 1}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
 
@@ -338,7 +341,7 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
 ```json
 
   '{"marketId":{"1":1...}
-    "price": {"1":0,5...}
+    "price": {"1":5000...}
     "quantity": {"1":1...}
     "traderId": {"1":1...}
     "timeStampUTC = {"1": 1548760422106 ...}
@@ -374,8 +377,10 @@ JSON returned to JavaScript must be parsed twice because JavaScript doesn't unde
 View unmatched trades.
 
 ```python
-
+import json
+import requests
 url = 'https://blocmarket.herokuapp.com/viewOpenTrades'
+headers = {'content-type': 'application/json'}
 content = {'marketId': 1}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
 
@@ -405,7 +410,6 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
 ```json
 
   '{"marketId":{"1":1...}
-    "price": {"1":0,5...}
     "quantity": {"1":1...}
     "traderId": {"1":1...}
     "timeStampUTC = {"1": 1548760422106 }
@@ -436,9 +440,11 @@ The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 
 
 ```python
-
+import json
+import requests
 url = 'https://blocmarket.herokuapp.com/viewMatchedTrades'
 content = {'marketId': 1}
+headers = {'content-type': 'application/json'}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
 
 ```
@@ -467,10 +473,10 @@ curl --data {"marketId": 1} --header "Content-Type: application/json" -X POST ht
 ```json
 
   '{"marketId":{"1":1...}
-    "price": {"1":0,5...}
+    "price": {"1":5000...}
     "quantity": {"1":1...}
     "traderId": {"1":1...}
-    "timeStampUTC = {"1": 1548760422106 }
+    "timeStampUTC = {"1": marketId | none | Market Id }
 
 
 ```
@@ -492,12 +498,90 @@ marketId | none | Market Id
 The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 </aside>
 
+## View tick history
+
+Pulls BID/ASK/TRADE data from a particular market, excluding own crossing trades. Time is given as a UTC timestamp.
+
+```python
+import json
+import requests
+import time
+url = 'https://blocmarket.herokuapp.com/viewTickHistory'
+headers = {'content-type': 'application/json'}
+content = {'marketId': 1, 'startTime': time.time() - 4*60*60*24, 'endTime': time.time() }
+response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
+
+```
+
+```javascript
+
+var data = {"marketId": 1, 'startTime': 1548760422106 , 'endTime': 1548770422106};
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewTickHistory', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ));
+```
+
+
+```shell
+curl --data {"marketId": 1, 'startTime': 1548760422106 , 'endTime': 1548770422106} --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/viewTickHistory --output ob.txt
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+  '{"tickType":{"1":"BUY"...}
+    "tradeId":{"1": 11087}
+    "xTradeId": {"1": 11097}
+    "marketId": {"1": 2}
+    "price": {"1":5000...}
+    "quantity": {"1":1...}
+    "traderId": {"1":1...}
+    "iMatched" {"1": True}
+    "timeStampUTC = {"1": 1548760422106 }
+
+
+```
+
+This endpoint returns all market BID/ASK/TRADE ticks in the time range. The *xTradeId* field is the crossing trade (if trade is matched).
+
+<aside class="info">
+Crossing trades are guessed by looking at all trades between *startTime* and *endTime*. If you need to be sure, get the whole order book with **viewOrderBook()**.
+</aside>
+
+### HTTP Request
+
+`POST https://blocmarket.herokuapp.com/viewTickHistory`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+marketId | none | Market Id
+startTime | none | Start time for ticks (unix time)
+endTime | none | End time for ticks (unix time)
+
+<aside class="success">
+The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
+</aside>
+
+
+
 
 ## View trade summary for a particular trader
 
 
 ```python
+import json
+import requests
 url = 'https://blocmarket.herokuapp.com/viewTradeSummary'
+headers = {'content-type': 'application/json'}
 content = {'traderId': 2}
 response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
 
@@ -527,20 +611,23 @@ curl --data {"traderId": 2} --header "Content-Type: application/json" -X POST ht
 ```json
 
   '{"marketId":{"1":1...}
-    "price": {"1":0,5...}
+    "price": {"1":5000...}
     "quantity": {"1":1...}
     "traderId": {"1":1...}
     "iMatched": {"1": True...}
     "timeStampUTC = {"1": 1548760422106 }
-    "marketMin": {"1":0.1...}
-    "marketMax": {"1":0.9...}
-    "marketMinOutcome": {"1", -0.45 ...}
-    "marketMaxOutcome": {"1", 0.35 ...}}'
+    "marketMin": {"1":1000...}
+    "marketMax": {"1":9000...}
+    "marketMinOutcome": {"1", -4500 ...}
+    "marketMaxOutcome": {"1", 3500 ...}}'
 
 
 ```
 
 This endpoint returns all trades for a particular user and the payoff for the trade at the maximum and minimum value for the market.
+
+
+
 
 ### HTTP Request
 
