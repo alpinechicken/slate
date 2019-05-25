@@ -254,6 +254,9 @@
                     <a href="#view-matched-trades" class="toc-h2 toc-link" data-title="View matched trades">View matched trades</a>
                   </li>
                   <li>
+                    <a href="#view-tick-history" class="toc-h2 toc-link" data-title="View tick history">View tick history</a>
+                  </li>
+                  <li>
                     <a href="#view-trade-summary-for-a-particular-trader" class="toc-h2 toc-link" data-title="View trade summary for a particular trader">View trade summary for a particular trader</a>
                   </li>
               </ul>
@@ -358,7 +361,7 @@ The signing key is not stored on the server. It cannot be recovered.
                     <span class="s">"marketRootId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
                     <span class="s">"marketBranchId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
                     <span class="s">"marketMin"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s">"marketMax"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+                    <span class="s">"marketMax"</span><span class="p">:</span><span class="mi">10000</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 
 </code></pre><pre class="highlight javascript tab-javascript"><code>
@@ -371,7 +374,7 @@ The signing key is not stored on the server. It cannot be recovered.
                     <span class="s2">"marketRootId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
                     <span class="s2">"marketBranchId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
                     <span class="s2">"marketMin"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">"marketMax"</span><span class="p">:</span><span class="mi">1</span><span class="p">};</span>
+                    <span class="s2">"marketMax"</span><span class="p">:</span><span class="mi">10000</span><span class="p">};</span>
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'method'</span> <span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
   <span class="s1">'contentType'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
@@ -405,7 +408,7 @@ curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e
  'marketBranchId': 1,
  'marketId': 1,
  'marketMax': 0,
- 'marketMin': 1,
+ 'marketMin': 10000,
  'marketRootId': 1,
  'traderId': 2}
 
@@ -472,7 +475,7 @@ curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e
                      <span class="s">"traderId"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">tId</span><span class="p">),</span>
                      <span class="s">"verifyKey"</span><span class="p">:</span> <span class="n">vk</span><span class="p">,</span>
                      <span class="s">"marketId"</span><span class="p">:</span> <span class="n">mkId</span><span class="p">,</span>
-                     <span class="s">"price"</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+                     <span class="s">"price"</span><span class="p">:</span> <span class="mi">5500</span><span class="p">,</span>
                      <span class="s">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content_maketrade</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code>
@@ -484,7 +487,7 @@ curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e
                      <span class="s2">"traderId"</span><span class="p">:</span> <span class="nx">traderId</span><span class="p">,</span>
                      <span class="s2">"verifyKey"</span><span class="p">:</span> <span class="nx">verifyKey</span><span class="p">,</span>
                      <span class="s2">"marketId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                     <span class="s2">"price"</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+                     <span class="s2">"price"</span><span class="p">:</span> <span class="mi">5500</span><span class="p">,</span>
                      <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">};</span>
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">'method'</span> <span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
@@ -516,7 +519,7 @@ curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e
 'chainChk': True, 'timeChk': True, 
 'colChk': True}"</span><span class="p">,</span><span class="w">
  </span><span class="err">'marketId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
- </span><span class="err">'price'</span><span class="p">:</span><span class="w"> </span><span class="mf">0.55</span><span class="p">,</span><span class="w">
+ </span><span class="err">'price'</span><span class="p">:</span><span class="w"> </span><span class="mi">5500</span><span class="p">,</span><span class="w">
  </span><span class="err">'quantity'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
  </span><span class="err">'traderId'</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">
 
@@ -569,7 +572,10 @@ The verify key is saved so messages from that trader can be verified. The signin
 </aside>
 <h1 id='views'>Views</h1><h2 id='view-order-book'>View order book</h2>
 <p>Views return market and order book information. </p>
-<pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOrderBook'</span>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOrderBook'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 <span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'marketId'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
@@ -590,7 +596,7 @@ The verify key is saved so messages from that trader can be verified. The signin
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">
   </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">5000</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 ...}
@@ -623,8 +629,10 @@ JSON returned to JavaScript must be parsed twice because JavaScript doesn't unde
 </aside>
 <h2 id='view-open-trades'>View open trades</h2>
 <p>View unmatched trades.</p>
-<pre class="highlight python tab-python"><code>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOpenTrades'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 <span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'marketId'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
@@ -646,7 +654,6 @@ JSON returned to JavaScript must be parsed twice because JavaScript doesn't unde
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">
   </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
@@ -674,9 +681,11 @@ JSON returned to JavaScript must be parsed twice because JavaScript doesn't unde
 <aside class="success">
 The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 </aside>
-<h2 id='view-matched-trades'>View matched trades</h2><pre class="highlight python tab-python"><code>
+<h2 id='view-matched-trades'>View matched trades</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewMatchedTrades'</span>
 <span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'marketId'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 </code></pre><pre class="highlight javascript tab-javascript"><code>
@@ -696,10 +705,10 @@ The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">
   </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">5000</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
-    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": marketId | none | Market Id }
 
 
 </span></code></pre>
@@ -724,7 +733,83 @@ The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 <aside class="success">
 The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 </aside>
-<h2 id='view-trade-summary-for-a-particular-trader'>View trade summary for a particular trader</h2><pre class="highlight python tab-python"><code><span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewTradeSummary'</span>
+<h2 id='view-tick-history'>View tick history</h2>
+<p>Pulls BID/ASK/TRADE data from a particular market, excluding own crossing trades. Time is given as a UTC timestamp.</p>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewTickHistory'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'marketId'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'startTime'</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">,</span> <span class="s">'endTime'</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"marketId"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'startTime'</span><span class="p">:</span> <span class="mi">1548760422106</span> <span class="p">,</span> <span class="s1">'endTime'</span><span class="p">:</span> <span class="mi">1548770422106</span><span class="p">};</span>
+<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'method'</span> <span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
+  <span class="s1">'contentType'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'payload'</span> <span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+<span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">UrlFetchApp</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://blocmarket.herokuapp.com/viewTickHistory'</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">getContentText</span><span class="p">()</span> <span class="p">));</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --data <span class="o">{</span><span class="s2">"marketId"</span>: 1, <span class="s1">'startTime'</span>: 1548760422106 , <span class="s1">'endTime'</span>: 1548770422106<span class="o">}</span> --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewTickHistory --output ob.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+  </span><span class="err">'</span><span class="p">{</span><span class="s2">"tickType"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="s2">"BUY"</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"tradeId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">11087</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"xTradeId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">11097</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"marketId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">5000</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"iMatched"</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="err">True</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
+
+
+</span></code></pre>
+<p>This endpoint returns all market BID/ASK/TRADE ticks in the time range. The <em>xTradeId</em> field is the crossing trade (if trade is matched).</p>
+
+<aside class="info">
+Crossing trades are guessed by looking at all trades between *startTime* and *endTime*. If you need to be sure, get the whole order book with **viewOrderBook()**.
+</aside>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewTickHistory</code></p>
+<h3 id='query-parameters-7'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>marketId</td>
+<td>none</td>
+<td>Market Id</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>none</td>
+<td>Start time for ticks (unix time)</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>none</td>
+<td>End time for ticks (unix time)</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
+</aside>
+<h2 id='view-trade-summary-for-a-particular-trader'>View trade summary for a particular trader</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewTradeSummary'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 <span class="n">content</span> <span class="o">=</span> <span class="p">{</span><span class="s">'traderId'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
@@ -745,22 +830,22 @@ The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">
   </span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="err">...</span><span class="p">}</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">5000</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"traderId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="mi">1</span><span class="err">...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"iMatched"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="err">True...</span><span class="p">}</span><span class="w">
     </span><span class="s2">"timeStampUTC = {"</span><span class="mi">1</span><span class="s2">": 1548760422106 }
-    "</span><span class="err">marketMin</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":0.1...}
-    "</span><span class="err">marketMax</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":0.9...}
-    "</span><span class="err">marketMinOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", -0.45 ...}
-    "</span><span class="err">marketMaxOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", 0.35 ...}}'
+    "</span><span class="err">marketMin</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":1000...}
+    "</span><span class="err">marketMax</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">":9000...}
+    "</span><span class="err">marketMinOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", -4500 ...}
+    "</span><span class="err">marketMaxOutcome</span><span class="s2">": {"</span><span class="mi">1</span><span class="s2">", 3500 ...}}'
 
 
 </span></code></pre>
 <p>This endpoint returns all trades for a particular user and the payoff for the trade at the maximum and minimum value for the market.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewTradeSummary</code></p>
-<h3 id='query-parameters-7'>Query Parameters</h3>
+<h3 id='query-parameters-8'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
