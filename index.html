@@ -245,6 +245,9 @@
             <a href="#views" class="toc-h1 toc-link" data-title="Views">Views</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#view-market-bounds" class="toc-h2 toc-link" data-title="View market bounds">View market bounds</a>
+                  </li>
+                  <li>
                     <a href="#view-order-book" class="toc-h2 toc-link" data-title="View order book">View order book</a>
                   </li>
                   <li>
@@ -257,7 +260,7 @@
                     <a href="#view-tick-history" class="toc-h2 toc-link" data-title="View tick history">View tick history</a>
                   </li>
                   <li>
-                    <a href="#view-trade-summary-for-a-particular-trader" class="toc-h2 toc-link" data-title="View trade summary for a particular trader">View trade summary for a particular trader</a>
+                    <a href="#view-trade-summary" class="toc-h2 toc-link" data-title="View trade summary">View trade summary</a>
                   </li>
               </ul>
           </li>
@@ -570,9 +573,62 @@ curl --data <span class="s1">'{"signingKey": "ece2efc138c8298d43caba1315ceda614e
 <aside class="success">
 The verify key is saved so messages from that trader can be verified. The signing key is not stored.
 </aside>
-<h1 id='views'>Views</h1><h2 id='view-order-book'>View order book</h2>
+<h1 id='views'>Views</h1>
 <p>Views return market and order book information. </p>
+<h2 id='view-market-bounds'>View market bounds</h2>
+<p>View all markets with current maximum/minimum values.</p>
 <pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewMarketBounds'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'method'</span> <span class="p">:</span> <span class="s1">'post'</span><span class="p">,</span>
+  <span class="s1">'contentType'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="s1">'payload'</span> <span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+<span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">UrlFetchApp</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://blocmarket.herokuapp.com/viewMarketBounds'</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">getContentText</span><span class="p">()</span> <span class="p">));</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl --data <span class="o">{}</span> --header <span class="s2">"Content-Type: application/json"</span> -X POST http://blocmarket.herokuapp.com/viewMarketBounds --output mb.txt
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="err">'</span><span class="p">{</span><span class="s2">"marketId"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="err">...</span><span class="p">},</span><span class="w">
+</span><span class="s2">"marketRootId"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="err">...</span><span class="p">},</span><span class="w">
+</span><span class="s2">"marketBranchId"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="err">...</span><span class="p">},</span><span class="w">
+</span><span class="s2">"marketMin"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="err">...</span><span class="p">},</span><span class="w">
+</span><span class="s2">"marketMax"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="mf">10000.0</span><span class="p">,</span><span class="err">...</span><span class="p">},</span><span class="w">
+</span><span class="s2">"marketDesc"</span><span class="p">:{</span><span class="s2">"0"</span><span class="p">:</span><span class="s2">"Market root : 3, branch: 1"</span><span class="p">,</span><span class="err">...</span><span class="p">}}</span><span class="err">'</span><span class="w">
+
+
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>POST https://blocmarket.herokuapp.com/viewMarketBounds</code></p>
+<h3 id='query-parameters-4'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<aside class="info">
+This takes into account the whole market table. Settled markets have the same marketMin and marketMax.
+</aside>
+<h2 id='view-order-book'>View order book</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewOrderBook'</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
@@ -603,9 +659,9 @@ The verify key is saved so messages from that trader can be verified. The signin
 
 </span></code></pre>
 <p>This endpoint creates a new user and registers the <code>verifyKey</code> with the server.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewOrderBook</code></p>
-<h3 id='query-parameters-4'>Query Parameters</h3>
+<h3 id='query-parameters-5'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -661,9 +717,9 @@ JSON returned to JavaScript must be parsed twice because JavaScript doesn't unde
 
 </span></code></pre>
 <p>This endpoint returns all open trades.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewOpenTrades</code></p>
-<h3 id='query-parameters-5'>Query Parameters</h3>
+<h3 id='query-parameters-6'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -713,9 +769,9 @@ The UTC timestamp is the number of thousandths of a second since Jan 1 1970.
 
 </span></code></pre>
 <p>This endpoint returns all matched trades.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewMatchedTrades</code></p>
-<h3 id='query-parameters-6'>Query Parameters</h3>
+<h3 id='query-parameters-7'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -776,9 +832,9 @@ The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 <aside class="info">
 Crossing trades are guessed by looking at all trades between *startTime* and *endTime*. If you need to be sure, get the whole order book with **viewOrderBook()**.
 </aside>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewTickHistory</code></p>
-<h3 id='query-parameters-7'>Query Parameters</h3>
+<h3 id='query-parameters-8'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -806,7 +862,7 @@ Crossing trades are guessed by looking at all trades between *startTime* and *en
 <aside class="success">
 The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 </aside>
-<h2 id='view-trade-summary-for-a-particular-trader'>View trade summary for a particular trader</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<h2 id='view-trade-summary'>View trade summary</h2><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s">'https://blocmarket.herokuapp.com/viewTradeSummary'</span>
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
@@ -843,9 +899,9 @@ The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 
 </span></code></pre>
 <p>This endpoint returns all trades for a particular user and the payoff for the trade at the maximum and minimum value for the market.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST https://blocmarket.herokuapp.com/viewTradeSummary</code></p>
-<h3 id='query-parameters-8'>Query Parameters</h3>
+<h3 id='query-parameters-9'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
