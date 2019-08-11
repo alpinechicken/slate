@@ -303,9 +303,74 @@ The verify key is saved so messages from that trader can be verified. The signin
 
 # Views
 
+Views return market and order book information. 
+
+
+## View market bounds
+
+View all markets with current maximum/minimum values.
+
+```python
+import json
+import requests
+url = 'https://blocmarket.herokuapp.com/viewMarketBounds'
+headers = {'content-type': 'application/json'}
+content = {}
+response = requests.post(url, data=json.dumps(content), headers=headers, stream=True)
+
+```
+
+```javascript
+var data = {};
+
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  'payload' : JSON.stringify(data),
+};
+
+  var response = UrlFetchApp.fetch('https://blocmarket.herokuapp.com/viewMarketBounds', options);
+  var json = JSON.parse(JSON.parse(response.getContentText() ));
+```
+
+```shell
+curl --data {} --header "Content-Type: application/json" -X POST http://blocmarket.herokuapp.com/viewMarketBounds --output mb.txt
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+
+'{"marketId":{"0":1,...},
+"marketRootId":{"0":1,...},
+"marketBranchId":{"0":1,...},
+"marketMin":{"0":0.0,...},
+"marketMax":{"0":10000.0,...},
+"marketDesc":{"0":"Market root : 3, branch: 1",...}}'
+
+
+```
+
+
+
+### HTTP Request
+
+`POST https://blocmarket.herokuapp.com/viewMarketBounds`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+          |         |
+
+<aside class="info">
+This takes into account the whole market table. Settled markets have the same marketMin and marketMax.
+</aside>
+
+
 ## View order book
 
-Views return market and order book information. 
 
 
 ```python
@@ -574,7 +639,7 @@ The UTC timestamp is the number of thousandths of a second since 1 Jan 1970.
 
 
 
-## View trade summary for a particular trader
+## View trade summary
 
 
 ```python
